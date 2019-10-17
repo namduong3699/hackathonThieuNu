@@ -78,10 +78,10 @@
                     @endauth
                 </div>
             @endif
-
+<h1>ABC</h1>
             <div class="content">
                 <div class="title m-b-md">
-                    Hello
+                    Laravel
                 </div>
 
                 <div class="links">
