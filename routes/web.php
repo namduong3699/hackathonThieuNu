@@ -11,6 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'HomeController@index');
+
+Route::get('/login', 'LoginController@getLogin');
+Route::post('/login', 'LoginController@postLogin');
+
+Route::get('logout', function(){
+	Auth::logout();
+	return redirect()->back();
+});
+
+Route::group(['prefix'=>'patient','middleware'=>'patient'],function(){
+	Route::get('/', 'PatientController@index');
+	Route::get('/home', 'PatientController@index');
+});
+
+Route::group(['prefix'=>'doctor','middleware'=>'doctor'],function(){
+	Route::get('/', 'DoctorController@index');
+	Route::get('/home', 'DoctorController@index');
 });
