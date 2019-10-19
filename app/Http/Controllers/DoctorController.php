@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\MedicalExaminationForm;
 use App\MedicalExaminationDetail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\MessageBag;
 use App\Patient;
 use App\Disease;
 use App\User;
+use App\Medicine;
 
 class DoctorController extends Controller
 {
@@ -16,21 +18,19 @@ class DoctorController extends Controller
 		return view('Doctor/index');
 	}
 
-
-
     function createMedicalReport(Request $req) {
-    	$medicalReport = new MedicalExaminationForm();
-    	// $medicalReport->patient_id = $req->patient_id;
-        $medicalReport->disease_id = $req->disease_id;
+    	$medicalReport = new MedicalExaminationDetail();
+        $medicalReport->disease_id = $req->disease;
         $medicalReport->doctor_id = Auth::user()->id;
         $medicalReport->sympton = $req->sympton;
     	$medicalReport->save();
-    	// for(){
-    	// 	$medical
-    	// }
+    	foreach($medicines as $medicine){
+    		$med = new Medicine();
+
+    	}
     }
 
-    function createMedicalReportDetail() {
+    function createMedicalReportDetail(Request $req) {
 
     }
 
@@ -47,7 +47,7 @@ class DoctorController extends Controller
     //Chi tiết bệnh nhân
     function patientDetail(Request $req) {
         $patient = Patient::where('id', $req->id)->first();
-        $medicalReport = MedicalExaminationForm::where('patient_id', $req->id)->get();
+        $medicalReport = MedicalExaminationForm::where('patient_id', $req->id)->orderBy('id', 'desc')->get();
         return view('Doctor/patientDetail', ['patient' => $patient, 'medicalReport' => $medicalReport]);
     }
 
@@ -55,7 +55,12 @@ class DoctorController extends Controller
         $medicalReport = MedicalExaminationDetail::where('id', $req->medicalExaminattionId)->get();
         // dd($medicalReport);
         // $disease = Disease::where('id', $medicalReport->disease_id)->get();
-        return view('Doctor/reportDetail');
+        $diseaseAll = Disease::all();
+        $medicineAll = Medicine::all();
+        return view('Doctor/reportDetail', [
+            'diseaseAll' => $diseaseAll, 
+            'medicineAll' => $medicineAll
+        ]);
 
     }
 
@@ -68,6 +73,12 @@ class DoctorController extends Controller
     }
 
     function createPatientPost(Request $req) {
+        $userCheck = User::where('email','=', $req->email)->get();
+        if(count($userCheck)) {
+            $errors = new MessageBag(['emailAlreadyExists' => 'Email đã được sử dụng']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
         $patient = new Patient();
         $patient->name = $req->name;
         $patient->birthday = $req->birthday;
@@ -79,10 +90,19 @@ class DoctorController extends Controller
         $user->email = $patient->email;
         $user->password = Hash::make($req->password);
         $user->levels = 2;
+
+        $patient->user_id = $user->id;
+
+
         if($patient->save() && $user->save()) {
-            return view('Doctor/createPatient', ['error' => false]);
+            return view('Doctor/createPatient', ['success' => true]);
         } else {
-            return view('Doctor/createPatient', ['error' => true]);
+            return view('Doctor/createPatient', ['success' => false]);
         }
+    }
+
+    function getMedicineAjax(Request $req) {
+        $medicine = Medicine::where('name', 'like', '%'.$req->name.'%')->get();
+        return $medicine->toJSON();
     }
 }

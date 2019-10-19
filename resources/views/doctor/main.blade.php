@@ -15,12 +15,16 @@
 	</script>
 	<link href="assets/vendors/global/vendors.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="assets/css/demo3/style.bundle.css" rel="stylesheet" type="text/css" />
-
+	@yield('headCustom')
 </head>
 <body>
-	@section('header');
-	@section('content')
+	@yield('header')
+	<div class="kt-portlet">
+		<div class="container">
+			@yield('content')
+		</div>
+	</div>
 	@show
-	@section('footer');
+	@yield('footer')
 </body>
 </html>

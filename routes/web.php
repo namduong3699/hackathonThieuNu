@@ -35,8 +35,10 @@ Route::group(['prefix'=>'doctor','middleware'=>'doctor'],function(){
 	Route::get('searchPatient', 'DoctorController@searchPatient');
 	Route::get('searchPatientByName', 'DoctorController@searchPatientByName');
 	Route::get('patientDetail/{id}', 'DoctorController@patientDetail');
+	Route::post('patientDetail', 'DoctorController@createMedicalReport');
 	Route::get('reportDetail/{id}', 'DoctorController@reportDetail');
 	Route::get('search', 'DoctorController@search');
 	Route::get('createPatient', 'DoctorController@createPatient');
 	Route::post('createPatient', 'DoctorController@createPatientPost');
+	Route::get('getMedicineAjax/{name}', 'DoctorController@getMedicineAjax');
 });

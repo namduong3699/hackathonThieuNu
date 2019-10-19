@@ -1,4 +1,13 @@
 @extends('doctor/main')
+
+@section('title')
+Search
+@endsection
+
+@section('header')
+@include('Doctor/modules/header')
+@endsection
+
 @section('content')
 <div class="col-lg-6">
 	<!--Begin::Portlet-->
@@ -27,7 +36,7 @@
 							<div class="kt-notes__section">     
 								<div class="kt-notes__info">
 									<a href="#" class="kt-notes__title">
-										Bệnh nhân: Tên bệnh nhân                                                      
+										Bệnh nhân: {{$patient->name}}                                                     
 									</a>
 								</div>
 							</div>
@@ -51,7 +60,7 @@
 							<div class="kt-notes__section">     
 								<div class="kt-notes__info">
 									<a href="{{URL::to('doctor/reportDetail', $med->id)}}" class="kt-notes__title">
-										Phiếu khám lần {{$loop->index+1}}                                             
+										Phiếu khám lần {{$medicalReport->count()-$loop->index}}                                             
 									</a>
 									<span class="kt-notes__desc">
 										({{$med->date}})
@@ -85,4 +94,8 @@
 	</div>
 	<!--End::Portlet-->
 </div>
+@endsection
+
+@section('footer')
+@include('Doctor/modules/footer')
 @endsection

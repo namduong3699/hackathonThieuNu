@@ -71,14 +71,14 @@ License: You must have a valid license purchased only from themeforest(the above
 					</div>
 					<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
 						<div class="kt-grid__item kt-grid__item--middle">
-							<h3 class="kt-login__title">Welcome to Metronic!</h3>
-							<h4 class="kt-login__subtitle">The ultimate Bootstrap & Angular 6 admin theme framework for next generation web apps.</h4>
+							<h3 class="kt-login__title">Welcome to Thieu Nu!</h3>
+							<h4 class="kt-login__subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis totam expedita quam? Voluptas, ullam, mollitia.</h4>
 						</div>
 					</div>
 					<div class="kt-grid__item">
 						<div class="kt-login__info">
 							<div class="kt-login__copyright">
-								&copy 2018 Metronic
+								&copy Thieu nu
 							</div>
 							<div class="kt-login__menu">
 								<a href="#" class="kt-link">Privacy</a>
@@ -93,10 +93,10 @@ License: You must have a valid license purchased only from themeforest(the above
 				<!--begin::Content-->
 				<div class="kt-grid__item kt-grid__item--fluid  kt-grid__item--order-tablet-and-mobile-1  kt-login__wrapper">
 					<!--begin::Head-->
-					<div class="kt-login__head">
+					<!-- <div class="kt-login__head">
 						<span class="kt-login__signup-label">Don't have an account yet?</span>&nbsp;&nbsp;
 						<a href="#" class="kt-link kt-login__signup-link">Sign Up!</a>
-					</div>
+					</div> -->
 					<!--end::Head-->
 
 					<!--begin::Body-->
@@ -119,7 +119,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 								<!--begin::Action-->
 								<div class="kt-login__actions">
-									<a href="#" class="kt-link kt-login__link-forgot">
+									<a href="#" class="kt-link kt-login__link-forgot" style="visibility: hidden;">
 										Forgot Password ?
 									</a>
 									<input type=submit id="" class="btn btn-primary btn-elevate kt-login__btn-primary" value="Sign In"></button>
@@ -129,32 +129,11 @@ License: You must have a valid license purchased only from themeforest(the above
 							<!--end::Form-->
 
 							<!--begin::Divider-->
-							<div class="kt-login__divider">
-								<div class="kt-divider">
-									<span></span>
-									<span>OR</span>
-									<span></span>
-								</div>
-							</div>
+
 							<!--end::Divider-->
 
 							<!--begin::Options-->
-							<div class="kt-login__options">
-								<a href="#" class="btn btn-primary kt-btn">
-									<i class="fab fa-facebook-f"></i>
-									Facebook
-								</a>
 
-								<a href="#" class="btn btn-info kt-btn">
-									<i class="fab fa-twitter"></i>
-									Twitter
-								</a>
-
-								<a href="#" class="btn btn-danger kt-btn">
-									<i class="fab fa-google"></i>
-									Google
-								</a>
-							</div>
 							<!--end::Options-->
 						</div>
 						<!--end::Signin-->

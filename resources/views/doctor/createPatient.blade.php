@@ -1,11 +1,20 @@
 @extends('Doctor/main')
+
+@section('title')
+Create Patient 
+@endsection
+
+@section('header')
+@include('Doctor/modules/header')
+@endsection
+
 @section('content')
-<div class="kt-wizard-v4" id="kt_apps_user_add_user" data-ktwizard-state="first">
+<div class="kt-wizard-v4 wd-100" id="kt_apps_user_add_user" data-ktwizard-state="first">
 	<!--begin: Form Wizard Nav -->
 
 	<!--end: Form Wizard Nav -->
 
-	<div class="kt-portlet">
+	<div class="kt-portlet kt-p30">
 		<div class="kt-portlet__body kt-portlet__body--fit">
 			<div class="kt-grid">
 				<div class="kt-grid__item kt-grid__item--fluid kt-wizard-v4__wrapper">
@@ -15,20 +24,20 @@
 						<!--begin: Form Wizard Step 1-->
 						<div class="kt-wizard-v4__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
 
-							@if(isset($error) && $error == false)
-							<div class="alert alert-success fade show" role="alert">
-								<div class="alert-icon"><i class="flaticon-warning"></i></div>
-								<div class="alert-text">Tạo tài khoản thành công!</div>
+							@if($errors->has('emailAlreadyExists'))
+							<div class="alert alert-danger fade show" role="alert">
+								<div class="alert-icon"><i class="flaticon-questions-circular-button"></i></div>
+								<div class="alert-text">Email đã được sử dụng!</div>
 								<div class="alert-close">
 									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 										<span aria-hidden="true"><i class="la la-close"></i></span>
 									</button>
 								</div>
 							</div>
-							@elseif(isset($error) && $error == true)
-							<div class="alert alert-danger fade show" role="alert">
-								<div class="alert-icon"><i class="flaticon-questions-circular-button"></i></div>
-								<div class="alert-text">Lỗi không tạo được tài khoản!</div>
+							@elseif(isset($success) && $success == true)
+							<div class="alert alert-success fade show" role="alert">
+								<div class="alert-icon"><i class="flaticon-warning"></i></div>
+								<div class="alert-text">Tạo tài khoản thành công!</div>
 								<div class="alert-close">
 									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 										<span aria-hidden="true"><i class="la la-close"></i></span>
@@ -124,4 +133,8 @@
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('footer')
+@include('Doctor/modules/footer')
 @endsection

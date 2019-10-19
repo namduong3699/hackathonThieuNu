@@ -32,4 +32,8 @@ class HomeController extends Controller
 		$doctor = Doctor::find($req->id);
 		return view('Doctor/doctorDetail', ['doctor' => $doctor]);
 	}
+
+	function getDoctorAll() {
+		// return view()
+	}
 }
