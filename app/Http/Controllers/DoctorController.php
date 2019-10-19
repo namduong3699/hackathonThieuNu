@@ -7,10 +7,14 @@ use App\MedicalExaminationForm;
 use App\MedicalExaminationDetail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Auth;
 use App\Patient;
 use App\Disease;
 use App\User;
+use App\Doctor;
 use App\Medicine;
+use App\PrescriptionDetail;
+use App\PrescriptionForm;
 
 class DoctorController extends Controller
 {
@@ -19,19 +23,27 @@ class DoctorController extends Controller
 	}
 
     function createMedicalReport(Request $req) {
-    	$medicalReport = new MedicalExaminationDetail();
-        $medicalReport->disease_id = $req->disease;
-        $medicalReport->doctor_id = Auth::user()->id;
-        $medicalReport->sympton = $req->sympton;
-    	$medicalReport->save();
-    	foreach($medicines as $medicine){
-    		$med = new Medicine();
+    	// $medicalReport = new MedicalExaminationDetail();
+     //    $medicalReport->disease_id = $req->disease;
+     //    $medicalReport->doctor_id = Auth::user()->id;
+     //    $medicalReport->sympton = $req->sympton;
+    	// $medicalReport->save();
+    	// foreach($medicines as $medicine){
+    	// 	$med = new Medicine();
 
-    	}
+    	// }
     }
 
     function createMedicalReportDetail(Request $req) {
-
+        $medicalReportDetail = new MedicalExaminationDetail();
+        $medicalReportDetail->medical_report_id = $req->medicalReportId;
+        $medicalReportDetail->disease_id = $req->disease;
+        $medicalReportDetail->doctor_id = Auth::user()->id;
+        $medicalReportDetail->sympton = $req->sympton;
+        $medicalReportDetail->date = date('Y-m-d H:i:s');
+        $medicalReportDetail->medicine_id = $req->medicine;
+        $medicalReportDetail->quantity = $req->quantity;
+        $medicalReportDetail->save();        
     }
 
     function searchPatient() {
@@ -52,14 +64,29 @@ class DoctorController extends Controller
     }
 
     function reportDetail(Request $req) {
-        $medicalReport = MedicalExaminationDetail::where('id', $req->medicalExaminattionId)->get();
+        $medicalReportdetail = MedicalExaminationDetail::where('medical_report_id', $req->medicalReportId)->get();
+        
+        foreach($medicalReportdetail as $med) {
+            $doctor = Doctor::find($med->doctor_id)->get('name');
+            $disease = Disease::find($med->disease_id)->get('name');
+            $medicine = Medicine::find($med->medicine_id)->get('name');
+            $med->doctor = $doctor->first()->name;
+            $med->disease = $disease->first()->name;
+            $med->medicine = $medicine->first()->name;
+            // dd($med->id);
+        }
+
+        // dd($medicalReportdetail);
+        // $doctor = Doctor::find($medicalReportdetail->doctor_id);
         // dd($medicalReport);
         // $disease = Disease::where('id', $medicalReport->disease_id)->get();
         $diseaseAll = Disease::all();
         $medicineAll = Medicine::all();
         return view('Doctor/reportDetail', [
             'diseaseAll' => $diseaseAll, 
-            'medicineAll' => $medicineAll
+            'medicineAll' => $medicineAll,
+            'medicalReportId' => $req->medicalReportId,
+            'medicalReportdetail' => $medicalReportdetail
         ]);
 
     }
@@ -104,5 +131,10 @@ class DoctorController extends Controller
     function getMedicineAjax(Request $req) {
         $medicine = Medicine::where('name', 'like', '%'.$req->name.'%')->get();
         return $medicine->toJSON();
+    }
+
+    function getDoctorDetail(Request $req) {
+        $doctor = Doctor::find($req->id);
+        return view('Doctor/doctorDetail', ['doctor' => $doctor]);
     }
 }

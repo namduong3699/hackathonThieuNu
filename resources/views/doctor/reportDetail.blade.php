@@ -37,15 +37,24 @@ Search
 						</tr>
 					</thead>
 					<tbody class="report-tbody">
+						@if($medicalReportdetail->count() >0)
+						@foreach($medicalReportdetail as $med)
 						<tr class="js-report-row">
-							<th scope="row">1</th>
-							<td><a href="#">Jhon</a></td>
-							<td>Stone</td>
-							<td>@jhon</td>
-							<td>Jhon</td>
-							<td>Stone</td>
-							<td>@jhon</td>
+							
+							<th scope="row">{{$loop->index+1}}</th>
+							<td><a href="{{URL::to('doctor/doctorDetail/'.$med->doctor_id)}}">{{$med->doctor}}</a></td>
+							<td>{{$med->date}}</td>
+							<td>{{$med->sympton}}</td>
+							<td>{{$med->disease}}</td>
+							<td>{{$med->medicine}}</td>
+							<td>{{$med->quantity}}</td>
+							
 						</tr>
+						@endforeach
+						@else
+						<tr><td>Trống</td></tr>
+						@endif
+						
 					</tbody>
 				</table>
 			</div>
@@ -82,7 +91,7 @@ Search
 						<select id="select-state" class="js-medicine" placeholder="Chọn thuốc..." name="medicine">
 							<option value="">0</option> 
 							@foreach($medicineAll as $medicine)
-							<option value="{{$medicine->id}}">{{$disease->medicine}}</option>
+							<option value="{{$medicine->id}}">{{$medicine->name}}</option>
 							@endforeach
 						</select>
 						<span class="form-text text-muted">Vui lòng chọn đúng loại thuốc</span>
@@ -107,7 +116,7 @@ Search
 					</div>
 				</div>
 			</div>
-
+			<input type="hidden" name="medicalReportId" value="{{$medicalReportId}}">
 		</form>
 		
 	</div>
@@ -135,12 +144,14 @@ Search
 			if(!isNaN(quantity) && medicine != 0 && disease != 0 && !sympton) {
 				console.log('add medicine: ' + medicine + ' ' + quantity);
 				$.ajax({
-					type: "POST", 
+					type: "GET", 
 					url: "{!!URL::to('doctor/patientDetail/') !!}", 
 					data: $('#form').serialize(),
 					complete: function(data){
-						var reportRow = $('.js-report-row:first').clone();
-						reportRow.appendTo('.report-tbody');
+						// var reportRow = $('.js-report-row:first').clone();
+						// reportRow.
+						// reportRow.appendTo('.report-tbody');
+						location.reload();
 					}
 				});
 
