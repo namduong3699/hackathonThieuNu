@@ -21,6 +21,9 @@ Route::get('logout', function(){
 	return redirect()->back();
 });
 
+Route::get('medicine/{id}', 'HomeController@getMedicine');
+Route::get('doctorDetail/{id}', 'HomeController@getDoctor');
+
 Route::group(['prefix'=>'patient','middleware'=>'patient'],function(){
 	Route::get('/', 'PatientController@index');
 	Route::get('/home', 'PatientController@index');
@@ -28,5 +31,12 @@ Route::group(['prefix'=>'patient','middleware'=>'patient'],function(){
 
 Route::group(['prefix'=>'doctor','middleware'=>'doctor'],function(){
 	Route::get('/', 'DoctorController@index');
-	Route::get('/home', 'DoctorController@index');
+	Route::get('home', 'DoctorController@index');
+	Route::get('searchPatient', 'DoctorController@searchPatient');
+	Route::get('searchPatientByName', 'DoctorController@searchPatientByName');
+	Route::get('patientDetail/{id}', 'DoctorController@patientDetail');
+	Route::get('reportDetail/{id}', 'DoctorController@reportDetail');
+	Route::get('search', 'DoctorController@search');
+	Route::get('createPatient', 'DoctorController@createPatient');
+	Route::post('createPatient', 'DoctorController@createPatientPost');
 });

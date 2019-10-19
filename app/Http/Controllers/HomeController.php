@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
+use App\Medicine;
+use App\Doctor;
 
 class HomeController extends Controller
 {
@@ -19,5 +21,15 @@ class HomeController extends Controller
 		} else {
 			return view('login');
 		}
+	}
+
+	function getMedicine(Request $req) {
+		$medicine = Medicine::find($req->id);
+		return view('medicine', ['medicine' => $medicine]);
+	}
+
+	function getDoctor(Request $req) {
+		$doctor = Doctor::find($req->id);
+		return view('Doctor/doctorDetail', ['doctor' => $doctor]);
 	}
 }
