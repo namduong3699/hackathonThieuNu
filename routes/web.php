@@ -27,6 +27,16 @@ Route::get('doctorDetail/{id}', 'HomeController@getDoctor');
 Route::group(['prefix'=>'patient','middleware'=>'patient'],function(){
 	Route::get('/', 'PatientController@index');
 	Route::get('/home', 'PatientController@index');
+	Route::get('index', 'PatientController@index');
+	Route::get('searchDoctorByName', 'PatientController@searchDoctorByName');
+	Route::get('searchDoctor','PatientController@searchDoctor');
+	Route::get('patientDetail','PatientController@patientDetail');
+	Route::get('doctorDetail/{id}', 'PatientController@getDoctorDetail');
+	Route::get('reportDetail/{medicalReportId}', 'PatientController@reportDetail');
+
+
+
+
 });
 
 Route::group(['prefix'=>'doctor','middleware'=>'doctor'],function(){
@@ -42,4 +52,6 @@ Route::group(['prefix'=>'doctor','middleware'=>'doctor'],function(){
 	Route::post('createPatient', 'DoctorController@createPatientPost');
 	Route::get('getMedicineAjax/{name}', 'DoctorController@getMedicineAjax');
 	Route::get('doctorDetail/{id}', 'DoctorController@getDoctorDetail');
+
 });
+

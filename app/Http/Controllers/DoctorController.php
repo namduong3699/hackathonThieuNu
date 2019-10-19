@@ -111,7 +111,6 @@ class DoctorController extends Controller
         $patient->birthday = $req->birthday;
         $patient->address = $req->address;
         $patient->phone = $req->phone;
-        $patient->email = $req->email;
 
         $user = new User();
         $user->email = $patient->email;

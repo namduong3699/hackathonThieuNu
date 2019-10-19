@@ -9,7 +9,7 @@ Index
 @endsection
 
 @section('content')
-doctor
+<h1>Welcome {{Auth::user()->name}}</h1>
 @endsection
 
 @section('footer')
